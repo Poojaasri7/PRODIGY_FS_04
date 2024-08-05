@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <link rel="stylesheet" href="/static/auth.css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      color: #333;
+      background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+      font: 600 16px/18px 'Open Sans', sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .login-space .group .check:checked + .check-label {
+  color: #333; 
+}
+    .login-box {
+      width: 100%;
+      max-width: 400px;
+      min-height: 550px;
+      background: #f7f7f7;
+      border-radius: 20px;
+      box-shadow: 12px 12px 24px rgba(0, 0, 0, 0.2), -12px -12px 24px rgba(255, 255, 255, 0.5);
+      overflow: hidden;
+    }
+
+    .login-snip {
+      padding: 30px;
+      background: #f7f7f7;
+      border-radius: 20px;
+    }
+
+    .login-snip .tab {
+      font-size: 18px;
+      margin-right: 15px;
+      padding-bottom: 5px;
+      margin: 0 15px 10px 0;
+      display: inline-block;
+      cursor: pointer;
+      color: #666;
+    }
+
+    .login-snip .sign-in:checked + .tab,
+    .login-snip .sign-up:checked + .tab {
+      color: #000;
+      border-bottom: 2px solid #ff9a9e;
+    }
+    #emaillabel{
+        margin-top: 15px;
+    }
+    .login-space {
+      min-height: 345px;
+      position: relative;
+      transition: all 0.4s linear;
+    }
+
+    .login-space .group {
+      margin-bottom: 20px; 
+      padding: 10px 0; 
+    }
+
+    .login-space .group .label,
+    .login-space .group .input,
+    .login-space .group .button {
+      width: 100%;
+      color: #333;
+      display: block;
+    }
+
+    .login-space .group .input,
+    .login-space .group .button {
+      border: none;
+      padding: 15px 20px;
+      border-radius: 30px;
+      background: #e0e0e0;
+      box-shadow: inset 6px 6px 12px rgba(0, 0, 0, 0.1), inset -6px -6px 12px rgba(255, 255, 255, 0.5);
+    }
+
+    .login-space .group input[data-type="password"] {
+      text-security: circle;
+      -webkit-text-security: circle;
+    }
+
+    .login-space .group .label {
+      color: #666;
+      font-size: 14px;
+    }
+
+    .login-space .group .button {
+      background: #ff9a9e;
+      color: #fff;
+      box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.2), -6px -6px 12px rgba(255, 255, 255, 0.5);
+    }
+
+    .login-space .group .button:hover {
+      background: #fc717c;
+    }
+
+    .login-snip .sign-in:checked ~ .login-space .login {
+      display: block;
+    }
+
+    .login-snip .sign-up:checked ~ .login-space .sign-up-form {
+      display: block;
+    }
+
+    .login-space .group .check + .check-label {
+      color: #333;
+      display: inline-block;
+      font-size: 14px;
+      margin-left: 5px;
+    }
+
+    .login-space .group .check + .check-label .icon {
+      background: #e0e0e0;
+      box-shadow: inset 6px 6px 12px rgba(0, 0, 0, 0.1), inset -6px -6px 12px rgba(255, 255, 255, 0.5);
+    }
+
+    .login-space .group .check:checked + .check-label .icon {
+      background: #ff9a9e;
+    }
+
+    .login-space .group .check + .check-label .icon:before,
+    .login-space .group .check + .check-label .icon:after {
+      background: #fff;
+    }
+
+    .hr {
+      height: 2px;
+      margin: 40px 0;
+      background: #e1e1e1;
+    }
+
+    .foot {
+      text-align: center;
+    }
+
+    .foot a {
+      color: #ff9a9e;
+      text-decoration: none;
+    }
+
+    .foot a:hover {
+      text-decoration: underline;
+    }
+
+  </style>
+</head>
+<body>
+<div class="login-box">
+  <div class="login-snip">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class="flashes">
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    <input id="tab-1" type="radio" name="tab" class="sign-in" checked>
+    <label for="tab-1" class="tab">Login</label>
+    <input id="tab-2" type="radio" name="tab" class="sign-up">
+    <label for="tab-2" class="tab">Sign Up</label>
+    <div class="login-space">
+      <div class="login">
+        <form method="POST">
+          <div class="group">
+            <label for="email" class="label" id="emaillabel">Email Address</label>
+            <input id="email" name="email" type="text" class="input" placeholder="Enter your email address">
+          </div>
+          <div class="group">
+            <label for="pass" class="label">Password</label>
+            <input id="pass" name="password" type="password" class="input" data-type="password" placeholder="Enter your password">
+          </div>
+          <div class="group">
+            <input id="check" type="checkbox" class="check" checked>
+            <label for="check" class="check-label"><span class="icon"></span> Keep me Signed in</label>
+          </div>
+          <div class="group">
+            <input type="submit" class="button" value="Sign In">
+          </div>
+        </form>
+      </div>
+      <div class="sign-up-form">
+        <form method="POST" action="{{ url_for('views.register') }}">
+          <div class="group">
+            <label for="user" class="label">Username</label>
+            <input id="user" name="username" type="text" class="input" placeholder="Create your Username">
+          </div>
+          <div class="group">
+            <label for="email" class="label">Email Address</label>
+            <input id="email" name="email" type="text" class="input" placeholder="Enter your email address">
+          </div>
+          <div class="group">
+            <label for="pass" class="label">Password</label>
+            <input id="pass" name="password" type="password" class="input" data-type="password" placeholder="Create your password">
+          </div>
+          <div class="group">
+            <input type="submit" class="button" value="Sign Up">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
